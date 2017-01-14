@@ -20,7 +20,7 @@ static int test_pass = 0;
 
 #define EXPECT_EQ_INT(expect, actual) EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%d")
 #define EXPECT_EQ_DOUBLE(expect, actual) EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%.17g")
-
+/*
 static void test_parse_null() {
     lept_value v;
     v.type = LEPT_FALSE;
@@ -38,6 +38,21 @@ static void test_parse_true() {
 static void test_parse_false() {
     lept_value v;
     v.type = LEPT_TRUE;
+    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "false"));
+    EXPECT_EQ_INT(LEPT_FALSE, lept_get_type(&v));
+}*/
+
+static void test_parse_literal() {
+    lept_value v;
+    v.type = LEPT_TRUE;
+    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "false"));
+    EXPECT_EQ_INT(LEPT_FALSE, lept_get_type(&v));
+    
+	v.type = LEPT_TRUE;
+    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "false"));
+    EXPECT_EQ_INT(LEPT_FALSE, lept_get_type(&v));
+    
+	v.type = LEPT_TRUE;
     EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "false"));
     EXPECT_EQ_INT(LEPT_FALSE, lept_get_type(&v));
 }
@@ -121,9 +136,10 @@ static void test_parse_number_too_big() {
 }
 
 static void test_parse() {
-    test_parse_null();
+    /*test_parse_null();
     test_parse_true();
-    test_parse_false();
+    test_parse_false();*/
+	test_parse_literal();
     test_parse_number();
     test_parse_expect_value();
     test_parse_invalid_value();
