@@ -41,20 +41,17 @@ static void test_parse_false() {
     EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "false"));
     EXPECT_EQ_INT(LEPT_FALSE, lept_get_type(&v));
 }*/
+#define TEST_LITERAL(expect, json)\
+  do {\
+    lept_value v;\
+    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, json));\
+    EXPECT_EQ_INT(expect, lept_get_type(&v));\
+  }while(0)
 
 static void test_parse_literal() {
-    lept_value v;
-    v.type = LEPT_TRUE;
-    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "false"));
-    EXPECT_EQ_INT(LEPT_FALSE, lept_get_type(&v));
-    
-	v.type = LEPT_TRUE;
-    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "false"));
-    EXPECT_EQ_INT(LEPT_FALSE, lept_get_type(&v));
-    
-	v.type = LEPT_TRUE;
-    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "false"));
-    EXPECT_EQ_INT(LEPT_FALSE, lept_get_type(&v));
+    TEST_LITERAL(LEPT_NULL, "null");
+    TEST_LITERAL(LEPT_TRUE, "true");
+    TEST_LITERAL(LEPT_FALSE, "false");
 }
 
 #define TEST_NUMBER(expect, json)\
