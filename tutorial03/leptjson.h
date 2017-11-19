@@ -10,7 +10,7 @@ typedef struct {
         struct { char* s; size_t len; }s;  /* string: null-terminated string, string length */
         double n;                          /* number */
     }u;
-    lept_type type;
+    lept_type type;  /* type of parsed value */
 }lept_value;
 
 enum {
